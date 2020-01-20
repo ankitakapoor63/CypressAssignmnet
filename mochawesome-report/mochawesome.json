@@ -1,0 +1,450 @@
+{
+  "stats": {
+    "suites": 10,
+    "tests": 9,
+    "passes": 4,
+    "pending": 0,
+    "failures": 5,
+    "start": "2019-12-17T02:51:40.975Z",
+    "end": "2019-12-17T02:53:26.619Z",
+    "duration": 105644,
+    "testsRegistered": 9,
+    "passPercent": 44.44444444444444,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "a1f9b327-e715-4476-8ab2-eb1487b27436",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "6bce359b-d661-4f04-8205-6af73b789781",
+          "title": "Dynamically Generated Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "b517b2ec-9e0f-4ff7-8ac8-a31872b3f702",
+              "title": "Generating a test for California",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should verify the taxes and total amount of socks",
+                  "fullTitle": "Dynamically Generated Tests Generating a test for California should verify the taxes and total amount of socks",
+                  "timedOut": null,
+                  "duration": 3261,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "//Object initiation\nvar productCatalouge = new _ProductCatalouge.default();\nvar confirmation = new _Confirmation.default(); //fetching environment url from cypress.json\ncy.visit(Cypress.env(\"url\")); //Inserting the data in the web application from csvTestData.json\nproductCatalouge.getZibraQuantity().type(data.zebra);\nproductCatalouge.getLionQuantity().type(data.lion);\nproductCatalouge.getElephantQuantity().type(data.elephant);\nproductCatalouge.getGirrafeQuantity().type(data.giraffe);\nproductCatalouge.getShipToState().select(data.state); //Checking if state is not blank\nexpect(data.state).to.not.equal(\"\"); //Clicking on CHECKOUT Button\nproductCatalouge.getCheckoutButton().click(); //Verifying that after checking out, we landed on the CONFIRMATION page\nconfirmation.getConfirmationMessage().contains(\"Confirm\");\nvar priceList = [];\nvar quantList = [];\nvar total = 0;\nvar tax = 0;\nvar grandTotal = 0; //Verifying DATA TYPE == Number and 0<= DATA QUANTITY<= In STOCK Quantity\nexpect((0, _typeQuantityCheck.default)(data.zebra, data.zebraInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.lion, data.lionInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.elephant, data.elephantInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.giraffe, data.giraffeInStock)).to.be.true; //MULTIPLYING TAXES AND SUMMING\n//Looping through table on confirmation page\ncy.get(\"tr.line_item td:nth-child(1)\").each(function ($e1, index, $list) {\n  //Getting all the prices from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().then(function (price1) {\n    priceList.push(price1.text());\n  }); //Getting all the quantities from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().next().then(function (quant) {\n    quantList.push(quant.text());\n  });\n}).then(function () {\n  for (var i = 0; i < priceList.length; i++) {\n    //calculating Total price by multiplying price and quantity from above and adding into total\n    total += priceList[i] * quantList[i];\n  } //Applying state tax on total and getting the grand total after tax application\n\n  if (data.state == \"California\") {\n    tax = total * 0.08;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"New York\") {\n    tax = total * 0.06;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"Minnesota\") {\n    tax = total * 0.00;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else {\n    tax = total * 0.05;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } //fetching total calculated by website\n\n  cy.get('#total').then(function (cal) {\n    var calculated = cal.text();\n    var splitcal = calculated.split(\"$\");\n    var trimCal = splitcal[1].trim(); //Verifying calculated total with the website total\n    expect(Number(grandTotal)).to.equal(Number(trimCal));\n  });\n});",
+                  "err": {
+                    "message": "AssertionError: expected false to be true",
+                    "estack": "AssertionError: expected false to be true\n    at Context.runnable.fn (http://localhost:50245/__cypress/runner/cypress_runner.js:101633:24)\n    at callFn (http://localhost:50245/__cypress/runner/cypress_runner.js:30931:21)\n    at http://localhost:50245/__cypress/runner/cypress_runner.js:104806:28\n    at PassThroughHandlerContext.finallyHandler (http://localhost:50245/__cypress/runner/cypress_runner.js:136955:23)\n    at PassThroughHandlerContext.tryCatcher (http://localhost:50245/__cypress/runner/cypress_runner.js:140400:23)\n    at Promise._settlePromiseFromHandler (http://localhost:50245/__cypress/runner/cypress_runner.js:138336:31)\n    at Promise._settlePromise (http://localhost:50245/__cypress/runner/cypress_runner.js:138393:18)\n    at Promise._settlePromise0 (http://localhost:50245/__cypress/runner/cypress_runner.js:138438:10)\n    at Promise._settlePromises (http://localhost:50245/__cypress/runner/cypress_runner.js:138517:18)\n    at Promise._fulfill (http://localhost:50245/__cypress/runner/cypress_runner.js:138462:18)\n    at Promise._settlePromise (http://localhost:50245/__cypress/runner/cypress_runner.js:138406:21)\n    at Promise._settlePromise0 (http://localhost:50245/__cypress/runner/cypress_runner.js:138438:10)\n    at Promise._settlePromises (http://localhost:50245/__cypress/runner/cypress_runner.js:138517:18)\n    at Promise._fulfill (http://localhost:50245/__cypress/runner/cypress_runner.js:138462:18)\n    at Promise._resolveCallback (http://localhost:50245/__cypress/runner/cypress_runner.js:138256:57)",
+                    "diff": null
+                  },
+                  "uuid": "007dcaaf-396a-4c7a-a46e-773e05f4f32f",
+                  "parentUUID": "b517b2ec-9e0f-4ff7-8ac8-a31872b3f702",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "007dcaaf-396a-4c7a-a46e-773e05f4f32f"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 3261,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "b01d7e60-dcb9-4d3c-857f-a2fd6a6a5d9f",
+              "title": "Generating a test for California",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should verify the taxes and total amount of socks",
+                  "fullTitle": "Dynamically Generated Tests Generating a test for California should verify the taxes and total amount of socks",
+                  "timedOut": null,
+                  "duration": 17358,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "//Object initiation\nvar productCatalouge = new _ProductCatalouge.default();\nvar confirmation = new _Confirmation.default(); //fetching environment url from cypress.json\ncy.visit(Cypress.env(\"url\")); //Inserting the data in the web application from csvTestData.json\nproductCatalouge.getZibraQuantity().type(data.zebra);\nproductCatalouge.getLionQuantity().type(data.lion);\nproductCatalouge.getElephantQuantity().type(data.elephant);\nproductCatalouge.getGirrafeQuantity().type(data.giraffe);\nproductCatalouge.getShipToState().select(data.state); //Checking if state is not blank\nexpect(data.state).to.not.equal(\"\"); //Clicking on CHECKOUT Button\nproductCatalouge.getCheckoutButton().click(); //Verifying that after checking out, we landed on the CONFIRMATION page\nconfirmation.getConfirmationMessage().contains(\"Confirm\");\nvar priceList = [];\nvar quantList = [];\nvar total = 0;\nvar tax = 0;\nvar grandTotal = 0; //Verifying DATA TYPE == Number and 0<= DATA QUANTITY<= In STOCK Quantity\nexpect((0, _typeQuantityCheck.default)(data.zebra, data.zebraInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.lion, data.lionInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.elephant, data.elephantInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.giraffe, data.giraffeInStock)).to.be.true; //MULTIPLYING TAXES AND SUMMING\n//Looping through table on confirmation page\ncy.get(\"tr.line_item td:nth-child(1)\").each(function ($e1, index, $list) {\n  //Getting all the prices from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().then(function (price1) {\n    priceList.push(price1.text());\n  }); //Getting all the quantities from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().next().then(function (quant) {\n    quantList.push(quant.text());\n  });\n}).then(function () {\n  for (var i = 0; i < priceList.length; i++) {\n    //calculating Total price by multiplying price and quantity from above and adding into total\n    total += priceList[i] * quantList[i];\n  } //Applying state tax on total and getting the grand total after tax application\n\n  if (data.state == \"California\") {\n    tax = total * 0.08;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"New York\") {\n    tax = total * 0.06;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"Minnesota\") {\n    tax = total * 0.00;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else {\n    tax = total * 0.05;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } //fetching total calculated by website\n\n  cy.get('#total').then(function (cal) {\n    var calculated = cal.text();\n    var splitcal = calculated.split(\"$\");\n    var trimCal = splitcal[1].trim(); //Verifying calculated total with the website total\n    expect(Number(grandTotal)).to.equal(Number(trimCal));\n  });\n});",
+                  "err": {},
+                  "uuid": "9f56de0f-942c-49f7-8dcc-4f25580d6b3f",
+                  "parentUUID": "b01d7e60-dcb9-4d3c-857f-a2fd6a6a5d9f",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "9f56de0f-942c-49f7-8dcc-4f25580d6b3f"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 17358,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "4a916d80-b36d-4d1d-8e66-1b9406de041a",
+              "title": "Generating a test for New York",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should verify the taxes and total amount of socks",
+                  "fullTitle": "Dynamically Generated Tests Generating a test for New York should verify the taxes and total amount of socks",
+                  "timedOut": null,
+                  "duration": 13430,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "//Object initiation\nvar productCatalouge = new _ProductCatalouge.default();\nvar confirmation = new _Confirmation.default(); //fetching environment url from cypress.json\ncy.visit(Cypress.env(\"url\")); //Inserting the data in the web application from csvTestData.json\nproductCatalouge.getZibraQuantity().type(data.zebra);\nproductCatalouge.getLionQuantity().type(data.lion);\nproductCatalouge.getElephantQuantity().type(data.elephant);\nproductCatalouge.getGirrafeQuantity().type(data.giraffe);\nproductCatalouge.getShipToState().select(data.state); //Checking if state is not blank\nexpect(data.state).to.not.equal(\"\"); //Clicking on CHECKOUT Button\nproductCatalouge.getCheckoutButton().click(); //Verifying that after checking out, we landed on the CONFIRMATION page\nconfirmation.getConfirmationMessage().contains(\"Confirm\");\nvar priceList = [];\nvar quantList = [];\nvar total = 0;\nvar tax = 0;\nvar grandTotal = 0; //Verifying DATA TYPE == Number and 0<= DATA QUANTITY<= In STOCK Quantity\nexpect((0, _typeQuantityCheck.default)(data.zebra, data.zebraInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.lion, data.lionInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.elephant, data.elephantInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.giraffe, data.giraffeInStock)).to.be.true; //MULTIPLYING TAXES AND SUMMING\n//Looping through table on confirmation page\ncy.get(\"tr.line_item td:nth-child(1)\").each(function ($e1, index, $list) {\n  //Getting all the prices from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().then(function (price1) {\n    priceList.push(price1.text());\n  }); //Getting all the quantities from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().next().then(function (quant) {\n    quantList.push(quant.text());\n  });\n}).then(function () {\n  for (var i = 0; i < priceList.length; i++) {\n    //calculating Total price by multiplying price and quantity from above and adding into total\n    total += priceList[i] * quantList[i];\n  } //Applying state tax on total and getting the grand total after tax application\n\n  if (data.state == \"California\") {\n    tax = total * 0.08;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"New York\") {\n    tax = total * 0.06;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"Minnesota\") {\n    tax = total * 0.00;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else {\n    tax = total * 0.05;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } //fetching total calculated by website\n\n  cy.get('#total').then(function (cal) {\n    var calculated = cal.text();\n    var splitcal = calculated.split(\"$\");\n    var trimCal = splitcal[1].trim(); //Verifying calculated total with the website total\n    expect(Number(grandTotal)).to.equal(Number(trimCal));\n  });\n});",
+                  "err": {},
+                  "uuid": "06a1e2a7-927b-46b7-8a78-f7b08f95d284",
+                  "parentUUID": "4a916d80-b36d-4d1d-8e66-1b9406de041a",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "06a1e2a7-927b-46b7-8a78-f7b08f95d284"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 13430,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "d3eab780-6389-4901-8cab-0df24229c8b8",
+              "title": "Generating a test for Minnesota",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should verify the taxes and total amount of socks",
+                  "fullTitle": "Dynamically Generated Tests Generating a test for Minnesota should verify the taxes and total amount of socks",
+                  "timedOut": null,
+                  "duration": 14362,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "//Object initiation\nvar productCatalouge = new _ProductCatalouge.default();\nvar confirmation = new _Confirmation.default(); //fetching environment url from cypress.json\ncy.visit(Cypress.env(\"url\")); //Inserting the data in the web application from csvTestData.json\nproductCatalouge.getZibraQuantity().type(data.zebra);\nproductCatalouge.getLionQuantity().type(data.lion);\nproductCatalouge.getElephantQuantity().type(data.elephant);\nproductCatalouge.getGirrafeQuantity().type(data.giraffe);\nproductCatalouge.getShipToState().select(data.state); //Checking if state is not blank\nexpect(data.state).to.not.equal(\"\"); //Clicking on CHECKOUT Button\nproductCatalouge.getCheckoutButton().click(); //Verifying that after checking out, we landed on the CONFIRMATION page\nconfirmation.getConfirmationMessage().contains(\"Confirm\");\nvar priceList = [];\nvar quantList = [];\nvar total = 0;\nvar tax = 0;\nvar grandTotal = 0; //Verifying DATA TYPE == Number and 0<= DATA QUANTITY<= In STOCK Quantity\nexpect((0, _typeQuantityCheck.default)(data.zebra, data.zebraInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.lion, data.lionInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.elephant, data.elephantInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.giraffe, data.giraffeInStock)).to.be.true; //MULTIPLYING TAXES AND SUMMING\n//Looping through table on confirmation page\ncy.get(\"tr.line_item td:nth-child(1)\").each(function ($e1, index, $list) {\n  //Getting all the prices from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().then(function (price1) {\n    priceList.push(price1.text());\n  }); //Getting all the quantities from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().next().then(function (quant) {\n    quantList.push(quant.text());\n  });\n}).then(function () {\n  for (var i = 0; i < priceList.length; i++) {\n    //calculating Total price by multiplying price and quantity from above and adding into total\n    total += priceList[i] * quantList[i];\n  } //Applying state tax on total and getting the grand total after tax application\n\n  if (data.state == \"California\") {\n    tax = total * 0.08;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"New York\") {\n    tax = total * 0.06;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"Minnesota\") {\n    tax = total * 0.00;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else {\n    tax = total * 0.05;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } //fetching total calculated by website\n\n  cy.get('#total').then(function (cal) {\n    var calculated = cal.text();\n    var splitcal = calculated.split(\"$\");\n    var trimCal = splitcal[1].trim(); //Verifying calculated total with the website total\n    expect(Number(grandTotal)).to.equal(Number(trimCal));\n  });\n});",
+                  "err": {},
+                  "uuid": "09fdb78f-8b91-4bc3-9518-1c9cae8540e7",
+                  "parentUUID": "d3eab780-6389-4901-8cab-0df24229c8b8",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "09fdb78f-8b91-4bc3-9518-1c9cae8540e7"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 14362,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "dcc3b6ed-05ad-4b22-861b-efa27321aa45",
+              "title": "Generating a test for Alabama",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should verify the taxes and total amount of socks",
+                  "fullTitle": "Dynamically Generated Tests Generating a test for Alabama should verify the taxes and total amount of socks",
+                  "timedOut": null,
+                  "duration": 11650,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "//Object initiation\nvar productCatalouge = new _ProductCatalouge.default();\nvar confirmation = new _Confirmation.default(); //fetching environment url from cypress.json\ncy.visit(Cypress.env(\"url\")); //Inserting the data in the web application from csvTestData.json\nproductCatalouge.getZibraQuantity().type(data.zebra);\nproductCatalouge.getLionQuantity().type(data.lion);\nproductCatalouge.getElephantQuantity().type(data.elephant);\nproductCatalouge.getGirrafeQuantity().type(data.giraffe);\nproductCatalouge.getShipToState().select(data.state); //Checking if state is not blank\nexpect(data.state).to.not.equal(\"\"); //Clicking on CHECKOUT Button\nproductCatalouge.getCheckoutButton().click(); //Verifying that after checking out, we landed on the CONFIRMATION page\nconfirmation.getConfirmationMessage().contains(\"Confirm\");\nvar priceList = [];\nvar quantList = [];\nvar total = 0;\nvar tax = 0;\nvar grandTotal = 0; //Verifying DATA TYPE == Number and 0<= DATA QUANTITY<= In STOCK Quantity\nexpect((0, _typeQuantityCheck.default)(data.zebra, data.zebraInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.lion, data.lionInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.elephant, data.elephantInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.giraffe, data.giraffeInStock)).to.be.true; //MULTIPLYING TAXES AND SUMMING\n//Looping through table on confirmation page\ncy.get(\"tr.line_item td:nth-child(1)\").each(function ($e1, index, $list) {\n  //Getting all the prices from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().then(function (price1) {\n    priceList.push(price1.text());\n  }); //Getting all the quantities from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().next().then(function (quant) {\n    quantList.push(quant.text());\n  });\n}).then(function () {\n  for (var i = 0; i < priceList.length; i++) {\n    //calculating Total price by multiplying price and quantity from above and adding into total\n    total += priceList[i] * quantList[i];\n  } //Applying state tax on total and getting the grand total after tax application\n\n  if (data.state == \"California\") {\n    tax = total * 0.08;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"New York\") {\n    tax = total * 0.06;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"Minnesota\") {\n    tax = total * 0.00;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else {\n    tax = total * 0.05;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } //fetching total calculated by website\n\n  cy.get('#total').then(function (cal) {\n    var calculated = cal.text();\n    var splitcal = calculated.split(\"$\");\n    var trimCal = splitcal[1].trim(); //Verifying calculated total with the website total\n    expect(Number(grandTotal)).to.equal(Number(trimCal));\n  });\n});",
+                  "err": {},
+                  "uuid": "dd27a007-2f5d-4175-9ecb-53f2ba4470f3",
+                  "parentUUID": "dcc3b6ed-05ad-4b22-861b-efa27321aa45",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "dd27a007-2f5d-4175-9ecb-53f2ba4470f3"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 11650,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "2977580d-0c42-4440-8f59-233fe0c13fda",
+              "title": "Generating a test for Alabama",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should verify the taxes and total amount of socks",
+                  "fullTitle": "Dynamically Generated Tests Generating a test for Alabama should verify the taxes and total amount of socks",
+                  "timedOut": null,
+                  "duration": 4407,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "//Object initiation\nvar productCatalouge = new _ProductCatalouge.default();\nvar confirmation = new _Confirmation.default(); //fetching environment url from cypress.json\ncy.visit(Cypress.env(\"url\")); //Inserting the data in the web application from csvTestData.json\nproductCatalouge.getZibraQuantity().type(data.zebra);\nproductCatalouge.getLionQuantity().type(data.lion);\nproductCatalouge.getElephantQuantity().type(data.elephant);\nproductCatalouge.getGirrafeQuantity().type(data.giraffe);\nproductCatalouge.getShipToState().select(data.state); //Checking if state is not blank\nexpect(data.state).to.not.equal(\"\"); //Clicking on CHECKOUT Button\nproductCatalouge.getCheckoutButton().click(); //Verifying that after checking out, we landed on the CONFIRMATION page\nconfirmation.getConfirmationMessage().contains(\"Confirm\");\nvar priceList = [];\nvar quantList = [];\nvar total = 0;\nvar tax = 0;\nvar grandTotal = 0; //Verifying DATA TYPE == Number and 0<= DATA QUANTITY<= In STOCK Quantity\nexpect((0, _typeQuantityCheck.default)(data.zebra, data.zebraInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.lion, data.lionInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.elephant, data.elephantInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.giraffe, data.giraffeInStock)).to.be.true; //MULTIPLYING TAXES AND SUMMING\n//Looping through table on confirmation page\ncy.get(\"tr.line_item td:nth-child(1)\").each(function ($e1, index, $list) {\n  //Getting all the prices from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().then(function (price1) {\n    priceList.push(price1.text());\n  }); //Getting all the quantities from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().next().then(function (quant) {\n    quantList.push(quant.text());\n  });\n}).then(function () {\n  for (var i = 0; i < priceList.length; i++) {\n    //calculating Total price by multiplying price and quantity from above and adding into total\n    total += priceList[i] * quantList[i];\n  } //Applying state tax on total and getting the grand total after tax application\n\n  if (data.state == \"California\") {\n    tax = total * 0.08;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"New York\") {\n    tax = total * 0.06;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"Minnesota\") {\n    tax = total * 0.00;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else {\n    tax = total * 0.05;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } //fetching total calculated by website\n\n  cy.get('#total').then(function (cal) {\n    var calculated = cal.text();\n    var splitcal = calculated.split(\"$\");\n    var trimCal = splitcal[1].trim(); //Verifying calculated total with the website total\n    expect(Number(grandTotal)).to.equal(Number(trimCal));\n  });\n});",
+                  "err": {
+                    "message": "AssertionError: expected false to be true",
+                    "estack": "AssertionError: expected false to be true\n    at Context.runnable.fn (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:101633:24)\n    at callFn (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:30931:21)\n    at https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:104806:28\n    at PassThroughHandlerContext.finallyHandler (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:136955:23)\n    at PassThroughHandlerContext.tryCatcher (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:140400:23)\n    at Promise._settlePromiseFromHandler (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138336:31)\n    at Promise._settlePromise (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138393:18)\n    at Promise._settlePromise0 (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138438:10)\n    at Promise._settlePromises (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138517:18)\n    at Promise._fulfill (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138462:18)\n    at Promise._settlePromise (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138406:21)\n    at Promise._settlePromise0 (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138438:10)\n    at Promise._settlePromises (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138517:18)\n    at Promise._fulfill (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138462:18)\n    at Promise._resolveCallback (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138256:57)",
+                    "diff": null
+                  },
+                  "uuid": "43a66923-9d70-4e55-ad90-f3fa57730571",
+                  "parentUUID": "2977580d-0c42-4440-8f59-233fe0c13fda",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "43a66923-9d70-4e55-ad90-f3fa57730571"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 4407,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "c70c36fa-47a3-44e7-bfa5-70d543860607",
+              "title": "Generating a test for Alabama",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should verify the taxes and total amount of socks",
+                  "fullTitle": "Dynamically Generated Tests Generating a test for Alabama should verify the taxes and total amount of socks",
+                  "timedOut": null,
+                  "duration": 2682,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "//Object initiation\nvar productCatalouge = new _ProductCatalouge.default();\nvar confirmation = new _Confirmation.default(); //fetching environment url from cypress.json\ncy.visit(Cypress.env(\"url\")); //Inserting the data in the web application from csvTestData.json\nproductCatalouge.getZibraQuantity().type(data.zebra);\nproductCatalouge.getLionQuantity().type(data.lion);\nproductCatalouge.getElephantQuantity().type(data.elephant);\nproductCatalouge.getGirrafeQuantity().type(data.giraffe);\nproductCatalouge.getShipToState().select(data.state); //Checking if state is not blank\nexpect(data.state).to.not.equal(\"\"); //Clicking on CHECKOUT Button\nproductCatalouge.getCheckoutButton().click(); //Verifying that after checking out, we landed on the CONFIRMATION page\nconfirmation.getConfirmationMessage().contains(\"Confirm\");\nvar priceList = [];\nvar quantList = [];\nvar total = 0;\nvar tax = 0;\nvar grandTotal = 0; //Verifying DATA TYPE == Number and 0<= DATA QUANTITY<= In STOCK Quantity\nexpect((0, _typeQuantityCheck.default)(data.zebra, data.zebraInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.lion, data.lionInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.elephant, data.elephantInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.giraffe, data.giraffeInStock)).to.be.true; //MULTIPLYING TAXES AND SUMMING\n//Looping through table on confirmation page\ncy.get(\"tr.line_item td:nth-child(1)\").each(function ($e1, index, $list) {\n  //Getting all the prices from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().then(function (price1) {\n    priceList.push(price1.text());\n  }); //Getting all the quantities from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().next().then(function (quant) {\n    quantList.push(quant.text());\n  });\n}).then(function () {\n  for (var i = 0; i < priceList.length; i++) {\n    //calculating Total price by multiplying price and quantity from above and adding into total\n    total += priceList[i] * quantList[i];\n  } //Applying state tax on total and getting the grand total after tax application\n\n  if (data.state == \"California\") {\n    tax = total * 0.08;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"New York\") {\n    tax = total * 0.06;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"Minnesota\") {\n    tax = total * 0.00;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else {\n    tax = total * 0.05;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } //fetching total calculated by website\n\n  cy.get('#total').then(function (cal) {\n    var calculated = cal.text();\n    var splitcal = calculated.split(\"$\");\n    var trimCal = splitcal[1].trim(); //Verifying calculated total with the website total\n    expect(Number(grandTotal)).to.equal(Number(trimCal));\n  });\n});",
+                  "err": {
+                    "message": "AssertionError: expected false to be true",
+                    "estack": "AssertionError: expected false to be true\n    at Context.runnable.fn (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:101633:24)\n    at callFn (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:30931:21)\n    at https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:104806:28\n    at PassThroughHandlerContext.finallyHandler (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:136955:23)\n    at PassThroughHandlerContext.tryCatcher (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:140400:23)\n    at Promise._settlePromiseFromHandler (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138336:31)\n    at Promise._settlePromise (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138393:18)\n    at Promise._settlePromise0 (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138438:10)\n    at Promise._settlePromises (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138517:18)\n    at Promise._fulfill (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138462:18)\n    at Promise._settlePromise (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138406:21)\n    at Promise._settlePromise0 (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138438:10)\n    at Promise._settlePromises (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138517:18)\n    at Promise._fulfill (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138462:18)\n    at Promise._resolveCallback (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138256:57)",
+                    "diff": null
+                  },
+                  "uuid": "d05c1c45-c7bf-4caa-aa47-2e3afdc7e5a3",
+                  "parentUUID": "c70c36fa-47a3-44e7-bfa5-70d543860607",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "d05c1c45-c7bf-4caa-aa47-2e3afdc7e5a3"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 2682,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "bbcff50d-2d87-4cc0-aeb0-1a83915c46b1",
+              "title": "Generating a test for Alabama",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should verify the taxes and total amount of socks",
+                  "fullTitle": "Dynamically Generated Tests Generating a test for Alabama should verify the taxes and total amount of socks",
+                  "timedOut": null,
+                  "duration": 3210,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "//Object initiation\nvar productCatalouge = new _ProductCatalouge.default();\nvar confirmation = new _Confirmation.default(); //fetching environment url from cypress.json\ncy.visit(Cypress.env(\"url\")); //Inserting the data in the web application from csvTestData.json\nproductCatalouge.getZibraQuantity().type(data.zebra);\nproductCatalouge.getLionQuantity().type(data.lion);\nproductCatalouge.getElephantQuantity().type(data.elephant);\nproductCatalouge.getGirrafeQuantity().type(data.giraffe);\nproductCatalouge.getShipToState().select(data.state); //Checking if state is not blank\nexpect(data.state).to.not.equal(\"\"); //Clicking on CHECKOUT Button\nproductCatalouge.getCheckoutButton().click(); //Verifying that after checking out, we landed on the CONFIRMATION page\nconfirmation.getConfirmationMessage().contains(\"Confirm\");\nvar priceList = [];\nvar quantList = [];\nvar total = 0;\nvar tax = 0;\nvar grandTotal = 0; //Verifying DATA TYPE == Number and 0<= DATA QUANTITY<= In STOCK Quantity\nexpect((0, _typeQuantityCheck.default)(data.zebra, data.zebraInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.lion, data.lionInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.elephant, data.elephantInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.giraffe, data.giraffeInStock)).to.be.true; //MULTIPLYING TAXES AND SUMMING\n//Looping through table on confirmation page\ncy.get(\"tr.line_item td:nth-child(1)\").each(function ($e1, index, $list) {\n  //Getting all the prices from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().then(function (price1) {\n    priceList.push(price1.text());\n  }); //Getting all the quantities from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().next().then(function (quant) {\n    quantList.push(quant.text());\n  });\n}).then(function () {\n  for (var i = 0; i < priceList.length; i++) {\n    //calculating Total price by multiplying price and quantity from above and adding into total\n    total += priceList[i] * quantList[i];\n  } //Applying state tax on total and getting the grand total after tax application\n\n  if (data.state == \"California\") {\n    tax = total * 0.08;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"New York\") {\n    tax = total * 0.06;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"Minnesota\") {\n    tax = total * 0.00;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else {\n    tax = total * 0.05;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } //fetching total calculated by website\n\n  cy.get('#total').then(function (cal) {\n    var calculated = cal.text();\n    var splitcal = calculated.split(\"$\");\n    var trimCal = splitcal[1].trim(); //Verifying calculated total with the website total\n    expect(Number(grandTotal)).to.equal(Number(trimCal));\n  });\n});",
+                  "err": {
+                    "message": "AssertionError: expected false to be true",
+                    "estack": "AssertionError: expected false to be true\n    at Context.runnable.fn (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:101633:24)\n    at callFn (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:30931:21)\n    at https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:104806:28\n    at PassThroughHandlerContext.finallyHandler (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:136955:23)\n    at PassThroughHandlerContext.tryCatcher (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:140400:23)\n    at Promise._settlePromiseFromHandler (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138336:31)\n    at Promise._settlePromise (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138393:18)\n    at Promise._settlePromise0 (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138438:10)\n    at Promise._settlePromises (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138517:18)\n    at Promise._fulfill (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138462:18)\n    at Promise._settlePromise (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138406:21)\n    at Promise._settlePromise0 (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138438:10)\n    at Promise._settlePromises (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138517:18)\n    at Promise._fulfill (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138462:18)\n    at Promise._resolveCallback (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138256:57)",
+                    "diff": null
+                  },
+                  "uuid": "facdb074-d9b1-472e-8a9f-728cd5b3aca2",
+                  "parentUUID": "bbcff50d-2d87-4cc0-aeb0-1a83915c46b1",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "facdb074-d9b1-472e-8a9f-728cd5b3aca2"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 3210,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "5d82da94-1c7b-4c08-afb9-6a5051d7ef86",
+              "title": "Generating a test for Alabama",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should verify the taxes and total amount of socks",
+                  "fullTitle": "Dynamically Generated Tests Generating a test for Alabama should verify the taxes and total amount of socks",
+                  "timedOut": null,
+                  "duration": 2624,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "//Object initiation\nvar productCatalouge = new _ProductCatalouge.default();\nvar confirmation = new _Confirmation.default(); //fetching environment url from cypress.json\ncy.visit(Cypress.env(\"url\")); //Inserting the data in the web application from csvTestData.json\nproductCatalouge.getZibraQuantity().type(data.zebra);\nproductCatalouge.getLionQuantity().type(data.lion);\nproductCatalouge.getElephantQuantity().type(data.elephant);\nproductCatalouge.getGirrafeQuantity().type(data.giraffe);\nproductCatalouge.getShipToState().select(data.state); //Checking if state is not blank\nexpect(data.state).to.not.equal(\"\"); //Clicking on CHECKOUT Button\nproductCatalouge.getCheckoutButton().click(); //Verifying that after checking out, we landed on the CONFIRMATION page\nconfirmation.getConfirmationMessage().contains(\"Confirm\");\nvar priceList = [];\nvar quantList = [];\nvar total = 0;\nvar tax = 0;\nvar grandTotal = 0; //Verifying DATA TYPE == Number and 0<= DATA QUANTITY<= In STOCK Quantity\nexpect((0, _typeQuantityCheck.default)(data.zebra, data.zebraInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.lion, data.lionInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.elephant, data.elephantInStock)).to.be.true;\nexpect((0, _typeQuantityCheck.default)(data.giraffe, data.giraffeInStock)).to.be.true; //MULTIPLYING TAXES AND SUMMING\n//Looping through table on confirmation page\ncy.get(\"tr.line_item td:nth-child(1)\").each(function ($e1, index, $list) {\n  //Getting all the prices from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().then(function (price1) {\n    priceList.push(price1.text());\n  }); //Getting all the quantities from the confirmation page and pushing into LIST\n  cy.get(\"tr.line_item td:nth-child(1)\").eq(index).next().next().then(function (quant) {\n    quantList.push(quant.text());\n  });\n}).then(function () {\n  for (var i = 0; i < priceList.length; i++) {\n    //calculating Total price by multiplying price and quantity from above and adding into total\n    total += priceList[i] * quantList[i];\n  } //Applying state tax on total and getting the grand total after tax application\n\n  if (data.state == \"California\") {\n    tax = total * 0.08;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"New York\") {\n    tax = total * 0.06;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else if (data.state == \"Minnesota\") {\n    tax = total * 0.00;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } else {\n    tax = total * 0.05;\n    tax = tax.toFixed(2);\n    grandTotal = Number(total) + Number(tax);\n  } //fetching total calculated by website\n\n  cy.get('#total').then(function (cal) {\n    var calculated = cal.text();\n    var splitcal = calculated.split(\"$\");\n    var trimCal = splitcal[1].trim(); //Verifying calculated total with the website total\n    expect(Number(grandTotal)).to.equal(Number(trimCal));\n  });\n});",
+                  "err": {
+                    "message": "AssertionError: expected false to be true",
+                    "estack": "AssertionError: expected false to be true\n    at Context.runnable.fn (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:101633:24)\n    at callFn (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:30931:21)\n    at https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:104806:28\n    at PassThroughHandlerContext.finallyHandler (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:136955:23)\n    at PassThroughHandlerContext.tryCatcher (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:140400:23)\n    at Promise._settlePromiseFromHandler (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138336:31)\n    at Promise._settlePromise (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138393:18)\n    at Promise._settlePromise0 (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138438:10)\n    at Promise._settlePromises (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138517:18)\n    at Promise._fulfill (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138462:18)\n    at Promise._settlePromise (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138406:21)\n    at Promise._settlePromise0 (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138438:10)\n    at Promise._settlePromises (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138517:18)\n    at Promise._fulfill (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138462:18)\n    at Promise._resolveCallback (https://jungle-socks.herokuapp.com/__cypress/runner/cypress_runner.js:138256:57)",
+                    "diff": null
+                  },
+                  "uuid": "25fbb7c3-a124-4d06-a803-10a758ae1bba",
+                  "parentUUID": "5d82da94-1c7b-4c08-afb9-6a5051d7ef86",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "25fbb7c3-a124-4d06-a803-10a758ae1bba"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 2624,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "5.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false
+      },
+      "version": "4.1.0"
+    },
+    "marge": {
+      "options": {},
+      "version": "4.0.1"
+    }
+  }
+}

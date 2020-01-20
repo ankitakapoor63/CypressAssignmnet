@@ -1,0 +1,147 @@
+[
+
+    {
+        "zebra": 1,
+        "lion": 10,
+        "elephant": 3,
+        "giraffe": 5,
+        "state": "California",
+        "inStock": {
+            "zebra": 23,
+            "lion": 12,
+            "elephant": 3,
+            "giraffe": 5
+        }
+        
+        
+    },
+    {
+        "zebra": 13,
+        "lion": 9,
+        "elephant": 2,
+        "giraffe": 0,
+        "state": "New York",
+        "inStock": {
+            "zebra": 23,
+            "lion": 12,
+            "elephant": 3,
+            "giraffe": 5
+        }
+        
+    },
+    {
+        "zebra": 14,
+        "lion": 10,
+        "elephant": 0,
+        "giraffe": 0,
+        "state": "Minnesota",
+        "inStock": {
+            "zebra": 23,
+            "lion": 12,
+            "elephant": 3,
+            "giraffe": 5
+        }
+        
+    },
+    {
+        "zebra": 1,
+        "lion": 1,
+        "elephant": 1,
+        "giraffe": 1,
+        "state": "Alabama",
+        "inStock": {
+            "zebra": 23,
+            "lion": 12,
+            "elephant": 3,
+            "giraffe": 5
+        }
+        
+    },
+    {
+    
+        "zebra": -11,
+        "lion": -90,
+        "elephant": 0,
+        "giraffe": 0,
+        "state": "Alabama",
+        "inStock": {
+            "zebra": 23,
+            "lion": 12,
+            "elephant": 3,
+            "giraffe": 5
+        }
+        
+    },
+    {
+        "zebra": 60,
+        "lion": 78,
+        "elephant": 0,
+        "giraffe": 0,
+        "state": "Alabama",
+        "inStock": {
+            "zebra": 23,
+            "lion": 12,
+            "elephant": 3,
+            "giraffe": 5
+        }
+        
+    },
+    {
+        "zebra": "",
+        "lion":"" ,
+        "elephant": "",
+        "giraffe": "",
+        "state": "Alabama",
+        "inStock": {
+            "zebra": 23,
+            "lion": 12,
+            "elephant": 3,
+            "giraffe": 5
+        }
+        
+    },
+    {
+        "zebra": 2.4,
+        "lion": 1.0,
+        "elephant": 0.9,
+        "giraffe": 0,
+        "state": "Alabama",
+        "inStock": {
+            "zebra": 23,
+            "lion": 12,
+            "elephant": 3,
+            "giraffe": 5
+        }
+        
+    },
+    {
+    
+      "zebra": "dkhgkdhg",
+      "lion": 0.0,
+      "elephant": 0,
+      "giraffe": "6fhfh",
+      "state": "California",
+      "inStock": {
+          "zebra": 23,
+          "lion": 12,
+          "elephant": 3,
+          "giraffe": 5
+      }
+      
+    },
+    {
+        "zebra": 14,
+        "lion": 10,
+        "elephant": 0,
+        "giraffe": 0,
+        "state": "",
+        "inStock": {
+            "zebra": 23,
+            "lion": 12,
+            "elephant": 3,
+            "giraffe": 5
+        }
+      
+    }
+
+  ]

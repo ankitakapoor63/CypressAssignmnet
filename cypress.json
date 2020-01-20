@@ -1,0 +1,10 @@
+{
+  "defaultCommandTimeout": 10000,
+  "pageLoadTimeout": 10000,
+  "reporter": "mochawesome",
+  "chromeWebSecurity": false,
+  "projectId": "yt4j6c",
+  "env": {
+    "url": "https://jungle-socks.herokuapp.com/"
+    }
+}
